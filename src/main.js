@@ -74,7 +74,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "History & Strategy",
     categoryTr: "Tarih & Strateji",
-    cover: "/covers/komutanlar.jpg"
+    cover: "covers/komutanlar.jpg"
   },
   {
     title: "Napoléon - Hayatı",
@@ -83,7 +83,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "History & Biography",
     categoryTr: "Tarih & Biyografi",
-    cover: "/covers/Napoleon.jpg"
+    cover: "covers/Napoleon.jpg"
   },
   {
     title: "Savaşta Liderlik - Tarihi Değiştirenlerden Hayati Dersler",
@@ -92,7 +92,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "Military Strategy",
     categoryTr: "Askeri Strateji",
-    cover: "/covers/savasta_liderlik.jpg"
+    cover: "covers/savasta_liderlik.jpg"
   },
   {
     title: "Çifte Tazminat",
@@ -101,7 +101,7 @@ const myBooks = [
     publisher: "Alakarga Sanat Yayınları",
     category: "Literary Noir",
     categoryTr: "Edebi Kara Roman",
-    cover: "/covers/cifte_tazminat.jpg"
+    cover: "covers/cifte_tazminat.jpg"
   },
   {
     title: "Ana",
@@ -110,7 +110,7 @@ const myBooks = [
     publisher: "Zeplin Yayınları",
     category: "World Classics",
     categoryTr: "Dünya Klasikleri",
-    cover: "/covers/ana.jpg"
+    cover: "covers/ana.jpg"
   },
   {
     title: "Hannibal",
@@ -119,7 +119,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "Military History",
     categoryTr: "Askeri Tarih",
-    cover: "/covers/Hannibal.jpg"
+    cover: "covers/Hannibal.jpg"
   },
   {
     title: "Napoleon Bonaparte",
@@ -128,7 +128,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "Military History",
     categoryTr: "Askeri Tarih",
-    cover: "/covers/Napoleon - Osprey.jpg"
+    cover: "covers/Napoleon - Osprey.jpg"
   },
   {
     title: "Erwin Rommel",
@@ -137,7 +137,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "Military History",
     categoryTr: "Askeri Tarih",
-    cover: "/covers/Rommel.jpg"
+    cover: "covers/Rommel.jpg"
   },
   {
     title: "Heinz Guderian",
@@ -146,7 +146,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "Military History",
     categoryTr: "Askeri Tarih",
-    cover: "/covers/Guderian.jpg"
+    cover: "covers/Guderian.jpg"
   },
   {
     title: "SS Teşkilatı: Hitler’in Elit Ordusu",
@@ -155,7 +155,7 @@ const myBooks = [
     publisher: "Timaş Yayınları",
     category: "History",
     categoryTr: "Tarih",
-    cover: "/covers/ss_teskilati.jpg"
+    cover: "covers/ss_teskilati.jpg"
   },
   {
     title: "Kan Kırmızı Karlar",
@@ -164,7 +164,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "Military Memoir",
     categoryTr: "Askeri Anı",
-    cover: "/covers/kizil_karlar.jpg"
+    cover: "covers/kizil_karlar.jpg"
   },
   {
     title: "Hitler: Canavarın Ardındaki Adam",
@@ -173,7 +173,7 @@ const myBooks = [
     publisher: "Kronik Kitap",
     category: "History",
     categoryTr: "Tarih",
-    cover: "/covers/Hitler.jpg"
+    cover: "covers/Hitler.jpg"
   }
 ]
 
@@ -248,7 +248,7 @@ const renderApp = () => {
     <section id="about" class="desk-container" style="padding: 7rem 0;">
       <div class="about-grid" data-animate>
         <div>
-          <img src="/assets/images/profile.png" alt="Dr. Barbaros Uzunköprü" class="portrait-img">
+          <img src="assets/images/profile.png" alt="Dr. Barbaros Uzunköprü" class="portrait-img">
         </div>
         <div>
           <h2 style="font-size: 3rem; font-style: italic; margin-bottom: 2rem;">${currentLang === 'en' ? 'Professional Profile' : 'Özgeçmiş'}</h2>
@@ -324,7 +324,7 @@ const renderApp = () => {
                       <p style="font-family: var(--font-sans); font-size: 0.65rem; color: var(--accent-gold); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.13em;">${myPresentation.congress}</p>
                       <p style="font-size: 0.75rem; color: var(--ink-secondary); margin-bottom: 1rem;">${currentLang === 'en' ? 'Date:' : 'Tarih:'} ${myPresentation.date}</p>
                       <p style="font-size: 1.2rem; line-height: 1.5; font-style: italic; margin-bottom: 2rem;">"${myPresentation.title}"</p>
-                      <a href="/docs/${myPresentation.filename}" target="_blank" class="doc-link" style="margin-bottom: 0;">
+                      <a href="docs/${myPresentation.filename}" target="_blank" class="doc-link" style="margin-bottom: 0;">
                          <span style="flex-grow: 1; font-weight: bold;">${currentLang === 'en' ? 'Download Paper' : 'Makaleyi İndir'}</span>
                          <span style="font-size: 1.2rem;">📥</span>
                       </a>
@@ -341,7 +341,7 @@ const renderApp = () => {
                          <p style="font-size: 1.3rem; line-height: 1.4; margin-bottom: 1.5rem; font-weight: 500;">
                             ${currentLang === 'en' ? doc.titleEn : doc.title}
                          </p>
-                         <a href="/docs/${doc.filename}" target="_blank" class="doc-link">
+                         <a href="docs/${doc.filename}" target="_blank" class="doc-link">
                             <span style="flex-grow: 1;">Download ${currentLang === 'en' ? doc.type : doc.typeTr}</span>
                             <span style="font-size: 1.2rem;">📥</span>
                          </a>
