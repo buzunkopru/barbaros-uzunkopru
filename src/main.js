@@ -308,7 +308,7 @@ const renderApp = () => {
           </div>
           
           <div style="display: grid; grid-template-columns: 1fr; gap: 4rem;">
-             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8rem;" data-animate>
+             <div class="academic-grid" data-animate>
                 <div>
                    <h3 style="font-size: 1.6rem; margin-bottom: 2rem; border-bottom: 2px solid var(--accent-gold); padding-bottom: 1rem; font-style: italic;">${currentLang === 'en' ? 'Articles & Papers' : 'Makaleler & Çalışmalar'}</h3>
                    ${myArticles.map(art => `
