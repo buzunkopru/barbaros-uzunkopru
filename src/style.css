@@ -1,0 +1,559 @@
+/*
+  --------------------------------------------------
+  The Translator's Desk :: Core Design System
+  --------------------------------------------------
+  Focus: Scholarly, Tactile, Premium, Intellectual
+*/
+
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  /* Colors */
+  --bg-parchment: #F6F2EB;      /* A premium warm ivory/off-white */
+  --text-ink-dark: #1A1A1A;     /* Deep scholarly ink for high legibility */
+  --ink-secondary: #4A4A4A;     /* Muted scholarly notes */
+  --accent-oxblood: #7B0000;    /* Antique library books */
+  --accent-gold: #B8860B;       /* Classic scholarly gold */
+  --border-sepia: #DCD5C9;      /* Subtle paper borders */
+  
+  /* Typography */
+  --font-serif: "EB Garamond", serif;
+  --font-sans: "Inter", sans-serif;
+  
+  /* Transitions and Effects */
+  --ease-page: cubic-bezier(0.19, 1, 0.22, 1);
+  --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-parchment);
+  color: var(--text-ink-dark);
+  font-family: var(--font-serif);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Scholarly Layout Utilities --- */
+
+.desk-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.hero-section {
+  padding: 12rem 0 8rem;
+  text-align: center;
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  color: #FDFCF7; /* Lighter text for dark image bg */
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+    url('./assets/images/scholars_desk_hero.png');
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.7) saturate(0.9);
+  z-index: -1;
+  transition: transform 10s ease-out;
+}
+
+.hero-section:hover .hero-background {
+  transform: scale(1.05); /* Subtle zoom effect */
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 7vw, 4.5rem);
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  font-style: italic;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0;
+  animation: slideFadeUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.5s;
+}
+
+@keyframes bob {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+.hero-subtitle {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  color: var(--accent-gold);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: slideFadeUp 1s ease-out forwards;
+}
+
+@keyframes slideFadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- High Fidelity 3D Bookshelf --- */
+
+.library-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5rem 3rem;
+  margin-top: 6rem;
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  perspective: 1500px;
+}
+
+.book-volume {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3.1;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: rotateY(-25deg) rotateX(4deg);
+  cursor: pointer;
+}
+
+.book-card:hover .book-volume {
+  transform: rotateY(-10deg) rotateX(2deg) scale(1.05); /* Tilted more towards viewer */
+}
+
+/* Base Shadow */
+.book-volume::after {
+  content: "";
+  position: absolute;
+  top: 5%; left: 5%;
+  width: 90%; height: 90%;
+  background: transparent;
+  transform: translateZ(-25px);
+  box-shadow: 15px 25px 40px rgba(0,0,0,0.4);
+  pointer-events: none;
+}
+
+.book-face {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.book-front {
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  transform: translateZ(15px);
+  border-radius: 2px 5px 5px 2px;
+  overflow: hidden;
+  box-shadow: inset 4px 0 10px rgba(0,0,0,0.1);
+}
+
+.book-front img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: contrast(1.02) brightness(0.98);
+}
+
+.book-back {
+  width: 100%; height: 100%;
+  top: 0; left: 0;
+  transform: rotateY(180deg) translateZ(15px);
+  background: var(--text-ink-dark);
+  border-radius: 5px 2px 2px 5px;
+}
+
+.book-spine {
+  width: 30px; height: 100%;
+  top: 0; left: 0;
+  transform: translateX(-15px) rotateY(-90deg);
+  background: linear-gradient(90deg, #222 0%, #111 80%, #000 100%);
+  border-radius: 2px 0 0 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spine-title {
+  color: rgba(255,255,255,0.7);
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transform: rotate(-90deg);
+  white-space: nowrap;
+}
+
+.book-pages-right {
+  width: 30px; height: 96%;
+  top: 2%; left: 100%;
+  transform: translateX(-15px) rotateY(90deg);
+  background: #f4f0e6;
+  background-image: repeating-linear-gradient(135deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 3px);
+}
+
+.book-pages-top {
+  height: 30px; width: 96%;
+  top: 0; left: 2%;
+  transform: translateY(-15px) rotateX(90deg);
+  background: #f4f0e6;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 3px);
+}
+
+.book-pages-bottom {
+  height: 30px; width: 96%;
+  top: 100%; left: 2%;
+  transform: translateY(-15px) rotateX(-90deg);
+  background: #e8e4db;
+}
+
+.book-info {
+  margin-top: 3.5rem;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--border-sepia);
+  transition: all 0.4s ease;
+}
+
+.book-card:hover .book-info {
+  border-color: var(--accent-gold);
+}
+
+/* --- Read Sample Overlay --- */
+.read-sample-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(3px);
+  z-index: 10;
+}
+
+.book-volume:hover .read-sample-overlay {
+  opacity: 1;
+}
+
+.read-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+  filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+}
+
+.read-text {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --- Document Link Styles --- */
+
+.doc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem 2rem;
+  background: white;
+  border: 1px solid var(--border-sepia);
+  color: var(--text-ink-dark);
+  text-decoration: none;
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.doc-link:hover {
+  border-color: var(--accent-gold);
+  background: var(--bg-parchment);
+  transform: translateX(5px);
+}
+
+/* --- Decorative Ink Elements --- */
+
+.ink-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--accent-gold);
+  margin: 2rem auto;
+}
+
+/* --- Navigation --- */
+
+.desk-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  background: rgba(245, 240, 230, 0.9);
+  border-bottom: 1px solid var(--border-sepia);
+}
+
+.nav-brand {
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--ink-secondary);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.nav-link {
+  color: var(--ink-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent-oxblood);
+}
+
+.nav-link-active {
+  color: var(--accent-gold) !important;
+  font-weight: 600;
+}
+
+/* --- About / Portrait --- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 4rem;
+  align-items: start;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.portrait-img {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 2px;
+  border: 1px solid var(--border-sepia);
+  outline: 5px solid var(--bg-parchment);
+  outline-offset: -1px;
+  box-shadow: 6px 6px 0px var(--border-sepia), 0 4px 24px rgba(0,0,0,0.08);
+  display: block;
+  filter: sepia(18%) contrast(1.04);
+}
+
+/* --- Mobile Navigation --- */
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--ink-secondary);
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 73px;
+  left: 0;
+  width: 100%;
+  background: rgba(246, 242, 235, 0.98);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-sepia);
+  flex-direction: column;
+  padding: 1.5rem 2rem;
+  gap: 1.5rem;
+  z-index: 999;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu .nav-link {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.mobile-lang-toggle {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--accent-gold);
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* --- Section Entry Animations --- */
+
+.animate-hidden {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.animate-visible {
+  transition: opacity 0.75s ease-out, transform 0.75s ease-out;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* --- Scroll To Top --- */
+
+#scroll-top {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  width: 44px;
+  height: 44px;
+  background: var(--text-ink-dark);
+  color: var(--accent-gold);
+  border: 1px solid var(--border-sepia);
+  border-radius: 2px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 500;
+  box-shadow: 2px 2px 0px var(--border-sepia);
+}
+
+#scroll-top.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#scroll-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 0px var(--border-sepia);
+}
+
+@media (max-width: 768px) {
+  .hero-section { padding: 6rem 0 4rem; }
+  .nav-links { display: none; }
+  .hamburger { display: block; }
+  .about-grid { grid-template-columns: 1fr; text-align: center; }
+  .portrait-img { max-width: 220px; margin: 0 auto; }
+}
+
+@media (max-width: 480px) {
+  .library-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Sample Reading Modal --- */
+.sample-modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(5px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.sample-modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.sample-modal-content {
+  background: var(--bg-parchment);
+  width: 90%;
+  max-width: 800px;
+  max-height: 85vh;
+  padding: 4rem;
+  border-radius: 4px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+  position: relative;
+  overflow-y: auto;
+  transform: translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.sample-modal-overlay.active .sample-modal-content {
+  transform: translateY(0);
+}
+
+.close-modal {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  font-size: 2.5rem;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  line-height: 1;
+}
+
+.close-modal:hover {
+  color: var(--accent-oxblood);
+}

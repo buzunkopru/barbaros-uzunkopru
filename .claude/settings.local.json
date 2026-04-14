@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(\"C:/Users/pc/Desktop/Yeni App/public/robots.txt\":*)",
+      "Bash(\"C:/Users/pc/Desktop/Yeni App/public/sitemap.xml\":*)",
+      "Bash(curl -s http://localhost:5173)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node -e \":*)",
+      "Bash(pandoc \"C:/Users/pc/Desktop/Yeni App/samples.docx\" -o \"C:/Users/pc/Desktop/Yeni App/samples.md\")"
+    ]
+  }
+}
